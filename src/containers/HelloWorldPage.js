@@ -1,5 +1,11 @@
 import React from 'react';
 
+//import constants
+import {
+    UPDATE_NAME,
+    TOGGLE_GREETING
+} from '../constants';
+
 //import the dumb components
 import {
     HelloWorld
@@ -21,7 +27,7 @@ export class HelloWorldPage extends React.Component {
         // this.setState({name: this.props.params.name || 'World'})
 
         let {store} = this.context;
-        store.dispatch({type: 'UPDATE_NAME', name: this.props.params.name || 'World'})
+        store.dispatch({type: UPDATE_NAME, name: this.props.params.name || 'World'})
         this.unsubscribe = store.subscribe(() => this.forceUpdate());
     }
 
@@ -39,7 +45,7 @@ export class HelloWorldPage extends React.Component {
         // }));
         let {store} = this.context;
 
-        store.dispatch({type: 'TOGGLE_GREETING'});
+        store.dispatch({type: TOGGLE_GREETING});
     }
 
     updateName(newName) {
@@ -50,7 +56,7 @@ export class HelloWorldPage extends React.Component {
         let {store} = this.context;
 
         store.dispatch({
-            type: 'UPDATE_NAME',
+            type: UPDATE_NAME,
             name: newName
         });
     }

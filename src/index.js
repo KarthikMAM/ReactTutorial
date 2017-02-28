@@ -5,6 +5,12 @@ import {Provider} from 'react-redux';
 
 import {Routes} from './routes';
 
+//import constants
+import {
+    UPDATE_NAME,
+    TOGGLE_GREETING
+} from './constants';
+
 const initialState = {
     name: 'World',
     greeting: 'Hello'
@@ -12,11 +18,11 @@ const initialState = {
 
 function reducer(state = initialState, action) {
     switch(action.type) {
-        case 'UPDATE_NAME': return {
+        case UPDATE_NAME: return {
             ...state,
             name: action.name
         }
-        case 'TOGGLE_GREETING': return {
+        case TOGGLE_GREETING: return {
             ...state,
             greeting: state.greeting === 'Bye' ? 'Hello' : 'Bye'
         }
