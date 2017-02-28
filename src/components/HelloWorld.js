@@ -5,21 +5,29 @@ export class HelloWorld extends React.Component {
         super(props);
 
         this.state = {
-            greeting: 'Hello'
+            greeting: 'Hello',
+            name: 'Karthik'
         };
     }
 
     onClickHandler(e) {
         this.setState((prevState, props) => ({
-            'greeting': prevState.greeting == 'Hello' ? 'Bye' : 'Hello'
+            greeting: prevState.greeting === 'Hello' ? 'Bye' : 'Hello'
         }));
     }
 
-    static propTypes = {
-        name: React.PropTypes.string.isRequired
-    };
+    onChangeHandler(e) {
+        this.setState({
+            name: e.target.value
+        });
+    }
 
     render() {
-        return <h1 onClick={ this.onClickHandler.bind(this) }> { this.state.greeting } { this.props.name } </h1>;
+        return (
+            <div>
+                <input type="text" onChange={ this.onChangeHandler.bind(this) } />
+                <h1 onClick={ this.onClickHandler.bind(this) }> { this.state.greeting } { this.state.name } </h1>
+            </div>
+        );
     }
 }
