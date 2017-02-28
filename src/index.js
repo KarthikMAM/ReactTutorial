@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-//React dumb components
+//React smart components, otherwise called containers
 import { 
-    HelloWorld
-} from './components';
+    HelloWorldPage
+} from './containers';
 
 ReactDOM.render(
-    <HelloWorld name="Karthik" />,
+    <HelloWorldPage />,
     document.getElementById('root')
 )
