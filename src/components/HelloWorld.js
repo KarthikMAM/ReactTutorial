@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export class HelloWorld extends React.Component {
 
@@ -13,6 +14,7 @@ export class HelloWorld extends React.Component {
         return (
             <div>
                 <input type="text" onChange={ (e) => this.props.updateName(e.target.value) } value={ this.props.name } />
+                <Link to={`/${this.props.name}`}><button>{this.props.name}</button></Link>
                 <h1 onClick={ this.props.toggleGreeting }> { this.props.greeting } { this.props.name } </h1>
             </div>
         );

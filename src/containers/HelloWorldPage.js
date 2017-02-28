@@ -10,12 +10,15 @@ export class HelloWorldPage extends React.Component {
         super(props);
 
         this.state = {
-            greeting: 'Hello',
-            name: 'Karthik'
+            greeting: 'Hello'
         };
 
         this.updateName = this.updateName.bind(this);
         this.toggleGreeting = this.toggleGreeting.bind(this);
+    }
+
+    componentWillMount() {
+        this.setState({name: this.props.params.name || 'World'})
     }
 
     toggleGreeting() {

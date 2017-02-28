@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-//React smart components, otherwise called containers
-import { 
-    HelloWorldPage
-} from './containers';
+import {Routes} from './routes';
 
 ReactDOM.render(
-    <HelloWorldPage />,
+    <Routes />,
     document.getElementById('root')
 )
