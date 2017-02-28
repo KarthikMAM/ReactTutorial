@@ -9,34 +9,59 @@ export class HelloWorldPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            greeting: 'Hello'
-        };
+        // this.state = {
+        //     greeting: 'Hello'
+        // };
 
         this.updateName = this.updateName.bind(this);
         this.toggleGreeting = this.toggleGreeting.bind(this);
     }
 
     componentWillMount() {
-        this.setState({name: this.props.params.name || 'World'})
+        // this.setState({name: this.props.params.name || 'World'})
+
+        let {store} = this.context;
+        store.dispatch({type: 'UPDATE_NAME', name: this.props.params.name || 'World'})
+        this.unsubscribe = store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    static contextTypes = {
+        store: React.PropTypes.object
     }
 
     toggleGreeting() {
-        this.setState((prevState, props) => ({
-            greeting: prevState.greeting === 'Hello' ? 'Bye' : 'Hello'
-        }));
+        // this.setState((prevState, props) => ({
+        //     greeting: prevState.greeting === 'Hello' ? 'Bye' : 'Hello'
+        // }));
+        let {store} = this.context;
+
+        store.dispatch({type: 'TOGGLE_GREETING'});
     }
 
     updateName(newName) {
-        this.setState({
+        // this.setState({
+        //     name: newName
+        // });
+
+        let {store} = this.context;
+
+        store.dispatch({
+            type: 'UPDATE_NAME',
             name: newName
         });
     }
 
     render() {
+        const {store} = this.context;
+        let state = store.getState();
+
         return <HelloWorld
-                    name={ this.state.name }
-                    greeting={ this.state.greeting }
+                    name={ state.name }
+                    greeting={ state.greeting }
                     toggleGreeting={ this.toggleGreeting }
                     updateName={ this.updateName } 
                  />
