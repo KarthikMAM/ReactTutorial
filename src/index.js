@@ -7,6 +7,6 @@ import {
 } from './components';
 
 ReactDOM.render(
-    <HelloWorld />,
+    <HelloWorld name="Karthik" />,
     document.getElementById('root')
 )
