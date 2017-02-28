@@ -1,10 +1,10 @@
 import React from 'react';
 
-//import constants
+//import actions
 import {
-    UPDATE_NAME,
-    TOGGLE_GREETING
-} from '../constants';
+    toggleGreeting,
+    updateName
+} from '../actions';
 
 //import the dumb components
 import {
@@ -15,19 +15,13 @@ export class HelloWorldPage extends React.Component {
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     greeting: 'Hello'
-        // };
-
         this.updateName = this.updateName.bind(this);
         this.toggleGreeting = this.toggleGreeting.bind(this);
     }
 
     componentWillMount() {
-        // this.setState({name: this.props.params.name || 'World'})
-
         let {store} = this.context;
-        store.dispatch({type: UPDATE_NAME, name: this.props.params.name || 'World'})
+        store.dispatch(updateName(this.props.params.name || 'World'));
         this.unsubscribe = store.subscribe(() => this.forceUpdate());
     }
 
@@ -40,25 +34,15 @@ export class HelloWorldPage extends React.Component {
     }
 
     toggleGreeting() {
-        // this.setState((prevState, props) => ({
-        //     greeting: prevState.greeting === 'Hello' ? 'Bye' : 'Hello'
-        // }));
         let {store} = this.context;
 
-        store.dispatch({type: TOGGLE_GREETING});
+        store.dispatch(toggleGreeting());
     }
 
     updateName(newName) {
-        // this.setState({
-        //     name: newName
-        // });
-
         let {store} = this.context;
 
-        store.dispatch({
-            type: UPDATE_NAME,
-            name: newName
-        });
+        store.dispatch(updateName(newName));
     }
 
     render() {
