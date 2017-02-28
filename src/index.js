@@ -1,23 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Routes} from './routes';
 import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
-class Provider extends React.Component {
-    getChildContext() {
-        return {
-            store: this.props.store
-        }
-    }
-
-    static childContextTypes = {
-        store: React.PropTypes.object
-    }
-
-    render() {
-        return this.props.children;
-    }
-}
+import {Routes} from './routes';
 
 const initialState = {
     name: 'World',
