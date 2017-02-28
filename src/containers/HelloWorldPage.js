@@ -1,4 +1,6 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 //import actions
 import {
@@ -7,53 +9,44 @@ import {
 } from '../actions';
 
 //import the dumb components
-import {
-    HelloWorld
-} from '../components';
+import { HelloWorld } from '../components';
 
-export class HelloWorldPage extends React.Component {
-    constructor(props) {
-        super(props);
+class HelloWorldPage extends React.Component {
 
-        this.updateName = this.updateName.bind(this);
-        this.toggleGreeting = this.toggleGreeting.bind(this);
+    static propTypes = {
+        name: React.PropTypes.string,
+        greeting: React.PropTypes.string,
+        toggleGreeting: React.PropTypes.func,
+        updateName: React.PropTypes.func
     }
 
     componentWillMount() {
-        let {store} = this.context;
-        store.dispatch(updateName(this.props.params.name || 'World'));
-        this.unsubscribe = store.subscribe(() => this.forceUpdate());
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    static contextTypes = {
-        store: React.PropTypes.object
-    }
-
-    toggleGreeting() {
-        let {store} = this.context;
-
-        store.dispatch(toggleGreeting());
-    }
-
-    updateName(newName) {
-        let {store} = this.context;
-
-        store.dispatch(updateName(newName));
+        this.props.updateName(this.props.params.name || 'World');
     }
 
     render() {
-        const {store} = this.context;
-        let state = store.getState();
-
         return <HelloWorld
-                    name={ state.name }
-                    greeting={ state.greeting }
-                    toggleGreeting={ this.toggleGreeting }
-                    updateName={ this.updateName } 
+                    name={ this.props.name }
+                    greeting={ this.props.greeting }
+                    toggleGreeting={ this.props.toggleGreeting }
+                    updateName={ newName => this.props.updateName(newName) } 
                  />
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        name: state.name,
+        greeting: state.greeting
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        toggleGreeting: bindActionCreators(toggleGreeting, dispatch),
+        updateName: bindActionCreators(updateName, dispatch)
+    }
+}
+
+const connectedContainer = connect(mapStateToProps, mapDispatchToProps)(HelloWorldPage);
+export {connectedContainer as HelloWorldPage}
